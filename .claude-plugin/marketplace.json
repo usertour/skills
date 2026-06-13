@@ -1,0 +1,15 @@
+{
+  "$schema": "https://code.claude.com/schemas/marketplace.json",
+  "name": "usertour",
+  "owner": {
+    "name": "Usertour",
+    "url": "https://www.usertour.io"
+  },
+  "plugins": [
+    {
+      "name": "usertour",
+      "source": "./",
+      "description": "Skills for authoring Usertour in-app onboarding content"
+    }
+  ]
+}

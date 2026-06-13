@@ -1,0 +1,10 @@
+{
+  "name": "usertour",
+  "version": "0.1.0",
+  "description": "Skills for authoring Usertour in-app onboarding content — flows, checklists, launchers, banners, surveys — via the Usertour API/MCP",
+  "author": {
+    "name": "Usertour",
+    "url": "https://www.usertour.io"
+  },
+  "keywords": ["usertour", "onboarding", "product-tour", "checklist", "in-app", "mcp", "user-onboarding"]
+}
