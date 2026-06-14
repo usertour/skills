@@ -76,18 +76,24 @@ Copy the skill folder into your agent's skills directory:
 | Command | Description |
 |---------|-------------|
 | `/usertour:build-onboarding` | Build and publish an onboarding experience from a description |
+| `/usertour:install-sdk` | Install & wire the Usertour Web SDK into the current app so published content renders |
 
 ## Skills
 
 | Skill | Useful for |
 |-------|------------|
 | usertour-content-authoring | Authoring & publishing flows, checklists, launchers, banners, surveys, trackers — lifecycle, schema retrieval, targeting, and design patterns |
+| usertour-sdk-install | Installing & wiring the Usertour Web SDK into a host app (loader, `init()` with the environment token, `identify()`, SPA routing, verification) so published content renders |
 
 ## How it fits together
 
 - **MCP server** (open standard) = the capability + self-describing guidance
   (`get_authoring_guide`, `get_content_schema`, create/update/validate/publish).
   Works in any MCP client.
-- **This skill** = the Claude/Cursor/etc. orchestration layer: when to do what,
-  the publish discipline, and design craft. It points at the MCP rather than
-  duplicating it.
+- **usertour-content-authoring** = the orchestration layer for *building* content:
+  when to do what, the publish discipline, and design craft. Points at the MCP
+  rather than duplicating it.
+- **usertour-sdk-install** = the *other half of the loop*: wiring the SDK into the
+  app so published content actually renders. Defers the SDK API to the usertour.js
+  docs and pulls the environment token from the MCP. The two skills connect
+  through the `externalId` you target in segments and pass to `identify()`.
