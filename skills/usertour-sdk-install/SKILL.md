@@ -16,7 +16,7 @@ retrieval**: read the live docs for the snippet, and get the token from the MCP.
 
 | Source | How | Use for |
 |--------|-----|---------|
-| usertour.js reference | WebFetch https://www.usertour.io/docs/developers/usertourjs-reference/overview | The exact loader snippet, install method, and full SDK API |
+| usertour.js reference | WebFetch https://docs.usertour.io/developers/usertourjs-reference/overview | The exact loader snippet, install method, and full SDK API |
 | `get_authoring_guide` (MCP tool) | call it | The "Making it appear (the SDK)" section — the cross-surface gotchas |
 | `list_environments` (MCP tool) | call it | The **environment token** for `init()` (the `token` field) |
 

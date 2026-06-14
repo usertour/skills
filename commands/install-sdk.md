@@ -15,7 +15,7 @@ Follow the `usertour-sdk-install` skill. Steps:
    reading `package.json` and the file layout. Load only the matching
    `skills/usertour-sdk-install/references/<framework>.md`, plus `identify.md`.
 3. WebFetch the usertour.js reference
-   (https://www.usertour.io/docs/developers/usertourjs-reference/overview) for the
+   (https://docs.usertour.io/developers/usertourjs-reference/overview) for the
    exact loader snippet and SDK API — don't reconstruct it from memory.
 4. Get the **environment token** via the `list_environments` MCP tool (the `token`
    field). This is the public SDK token. NEVER put the API token (`utp_…`) in
