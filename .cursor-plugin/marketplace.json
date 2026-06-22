@@ -8,7 +8,8 @@
     {
       "name": "usertour",
       "source": "./",
-      "description": "Skills for authoring Usertour in-app onboarding content"
+      "description": "Skills for authoring Usertour in-app onboarding content",
+      "version": "0.2.1"
     }
   ]
 }
