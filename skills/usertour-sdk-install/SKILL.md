@@ -1,6 +1,6 @@
 ---
 name: usertour-sdk-install
-description: Install and wire the Usertour Web SDK into a host web app so published content actually renders — the loader snippet, init() with the environment token, identify(), SPA routing, and verification. Use when the user asks to install / set up / embed / integrate Usertour in their app, add the loader snippet, wire identify, or asks "why isn't my flow / checklist showing up" in the running app. NOT for authoring content (use usertour-content-authoring) or server/API-token work. Prefers the live usertour.js docs and the environment token from the Usertour MCP over pre-trained snippets.
+description: Install and wire the Usertour Web SDK into a host web app so published content actually renders — the loader snippet, init() with the environment token, identify(), SPA routing, and verification. Use when the user asks to install / set up / embed / integrate Usertour in their app, add the loader snippet, wire identify, or asks "why isn't my flow / checklist showing up" in the running app. NOT for authoring content (use usertour-content-authoring) or server/API-token work. Also handles self-hosted / local instances (pointing the SDK at your own server). Prefers the live usertour.js docs and the environment token from the Usertour MCP over pre-trained snippets.
 ---
 
 # Install the Usertour SDK
@@ -19,6 +19,7 @@ retrieval**: read the live docs for the snippet, and get the token from the MCP.
 | usertour.js reference | WebFetch https://docs.usertour.io/developers/usertourjs-reference/overview | The exact loader snippet, install method, and full SDK API |
 | `get_authoring_guide` (MCP tool) | call it | The "Making it appear (the SDK)" section — the cross-surface gotchas |
 | `list_environments` (MCP tool) | call it | The **environment token** for `init()` (the `token` field) |
+| Self-hosted SDK config | WebFetch https://docs.usertour.io/open-source/usertourjs | `USERTOURJS_ENV_VARS` keys when the instance isn't Usertour Cloud |
 
 If the `usertour` MCP isn't connected, you can still install from the docs, but
 ask the user for the environment token (Settings → Environments) — it is the
@@ -37,7 +38,9 @@ ask the user for the environment token (Settings → Environments) — it is the
    grants full project write access. Before finishing, grep the app for `utp_` to
    be sure none leaked in.
 4. **Install the loader** — add the snippet for the detected framework and call
-   `usertour.init("<environment token>")` once, early in app startup.
+   `usertour.init("<environment token>")` once, early in app startup. If the
+   deployment is **self-hosted or local** (not Usertour Cloud), point the SDK at
+   it first — see [references/self-hosted.md](references/self-hosted.md).
 5. **Wire `identify()`** — see [references/identify.md](references/identify.md).
    Call `usertour.identify(userId, attributes)` when the app knows the user.
    **`userId` must equal the `externalId`** the content's segments / start-rules
@@ -57,6 +60,9 @@ ask the user for the environment token (Settings → Environments) — it is the
   segments / start-rules, or nothing renders (the #1 "it's not showing" cause).
 - **Defer the API to the docs:** this skill is the wiring + gotchas, not a copy of
   the snippet. Read the reference; it's the source of truth.
+- **Self-host target:** if the instance isn't Usertour Cloud, point the SDK at it
+  (`USERTOURJS_ENV_VARS`) or it keeps talking to Cloud and nothing loads — see
+  [references/self-hosted.md](references/self-hosted.md).
 
 ## SDK methods (from the reference)
 
