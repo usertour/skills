@@ -2,10 +2,7 @@
   "mcpServers": {
     "usertour": {
       "type": "http",
-      "url": "${USERTOUR_MCP_URL:-https://api.usertour.io/mcp}",
-      "headers": {
-        "Authorization": "Bearer ${USERTOUR_API_TOKEN}"
-      }
+      "url": "${USERTOUR_MCP_URL:-https://api.usertour.io/mcp}"
     }
   }
 }

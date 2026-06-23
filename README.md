@@ -11,16 +11,13 @@ tools (`get_authoring_guide`, `get_content_schema`), so it never drifts.
 
 ## Prerequisite: connect the Usertour MCP
 
-The skill drives the **Usertour MCP server**. You only need a personal API token
-(`USERTOUR_API_TOKEN`); the MCP URL defaults to Usertour Cloud.
+The skill drives the **Usertour MCP server**. Connecting is **OAuth one-click** —
+no token to copy. On first use your agent opens the browser, you sign in and pick
+the one project the connection may act in, and you're done. It acts as you, never
+beyond your role in that project.
 
-```bash
-# Required — a personal API token (Settings → API tokens), scoped to one project
-export USERTOUR_API_TOKEN="utp_…"
-```
-
-**Cloud** (default): nothing else to set — `.mcp.json` points at
-`https://api.usertour.io/mcp`.
+**Cloud** (default): nothing to set — `.mcp.json` points at
+`https://api.usertour.io/mcp` and the agent runs the login for you.
 
 **Self-hosted**: point the MCP at your own server with `USERTOUR_MCP_URL`:
 
@@ -31,16 +28,20 @@ export USERTOUR_MCP_URL="https://usertour.your-company.com/mcp"
 The `url` in `.mcp.json` is `${USERTOUR_MCP_URL:-https://api.usertour.io/mcp}` —
 cloud users get the default, self-hosters override it via the env var. (If your
 agent doesn't expand `${…:-default}` env syntax, edit the `url` in `.mcp.json`
-directly.)
+directly.) OAuth 2.1 requires the endpoint to be reachable over HTTPS (loopback
+is exempt for local testing).
 
-> Today the MCP is token-scoped per project, so you supply the token (and, when
-> self-hosting, the URL). OAuth is on the roadmap; once it lands this becomes
-> zero-config for cloud.
+> Prefer a **scoped, single-project personal token** instead of OAuth (e.g. for
+> CI or to grant an agent *less* than your full role)? Add a `headers` block to
+> `.mcp.json` — `"Authorization": "Bearer utp_…"` — and the client skips the
+> login. See the [MCP docs](https://docs.usertour.io/api-reference-v2/mcp) for both
+> paths.
 
 ## Installing
 
 These skills follow the Agent Skills standard and work with any agent that
-supports it.
+supports it. For the full walkthrough (with the OAuth login and self-hosting),
+see the [MCP docs](https://docs.usertour.io/api-reference-v2/mcp).
 
 ### Claude Code
 
