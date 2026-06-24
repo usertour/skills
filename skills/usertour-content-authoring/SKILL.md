@@ -60,11 +60,13 @@ Design the experience first (above), then build it:
 3. **Fetch the schema** — `get_content_schema({ type })` for the body you'll write.
 4. **Create** — `create_content({ type, name, themeId })` → returns `editedVersionId`.
 5. **Author** — `update_content_version({ contentId, versionId, steps | data, startRules })`.
-   Partial bodies are fine (field-level merge).
+   Top-level fields merge, but a list you send (`steps`, checklist `items`) replaces
+   that whole list — see `get_authoring_guide`.
 6. **Validate** — `validate_content_version`; fix every error before publishing.
 7. **Publish** — `publish_content` (per environment; idempotent).
-8. **Verify** — load the app for the identified end-user and confirm it renders
-   (the SDK serves published content). Don't claim "done" before this.
+8. **Verify** — load the app as the identified end-user and walk every interactive
+   path, not just that it renders (see [patterns.md](references/patterns.md) →
+   Always verify). Don't claim "done" before this.
 
 ## Going deeper
 
