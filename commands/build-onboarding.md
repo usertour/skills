@@ -23,7 +23,11 @@ Follow the `usertour-content-authoring` skill. Steps:
    `publish_content`.
 6. Use real, stable selectors from the target app. If you don't know the app's
    DOM, ask the user for the page/URL and the elements to anchor to.
-7. After publishing, offer to verify by loading the app as the end-user.
+7. **Verify it renders** — publishing only *stores* the content; it shows only
+   once the app loads the SDK and calls `identify()` with the SAME id you targeted
+   (the `externalId`). Verify by loading the app as that identified user. If it
+   doesn't appear because the SDK isn't installed/wired, that's the rendering half
+   — hand off to the `usertour-sdk-install` skill (not this command's job).
 
 Confirm the plan with the user before creating content if the request is
 ambiguous. Never invent field shapes — fetch them from `get_content_schema`.
