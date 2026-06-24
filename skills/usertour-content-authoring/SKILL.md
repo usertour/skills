@@ -22,7 +22,37 @@ always current.
 If the `usertour` MCP is not connected, tell the user to configure it (see the
 plugin's `.mcp.json` / README) — do not guess field shapes.
 
+## Design before you author
+
+Onboarding is a means to an activation goal, not a tour for its own sake. Before
+calling any tool, decide (infer from context — don't interrogate):
+- **Who** — the segment / lifecycle stage.
+- **One action** — the single behavior that means "activated"; build toward it.
+- **When** — the trigger moment (first login, reaching a page, an empty state).
+- **Done** — what signals success (a click, an event, a checklist completion).
+
+Then pick the form and right-size it. Defaults that make content *good*, not just
+valid (override only with a reason):
+- **One activation action → a tight flow (2–3 steps) or a single
+  launcher/tooltip.** Don't pad it into a checklist by inventing tasks.
+- **Several genuinely independent setup tasks → checklist** (resumable). Don't
+  force them into a linear flow.
+- **First-run flow = 3–5 steps**, one idea and one primary action each. More →
+  split into a checklist or several context-triggered flows.
+- **Trigger on context, not on load** — a tooltip when the user reaches its
+  page/element; a welcome modal `frequency: once`; help on an empty state. Never
+  fire on every page or every session.
+- **Always escapable** — a skip/dismiss; don't block the UI unless necessary;
+  don't re-show completed or dismissed content.
+- **One audience per piece** — split by segment, don't make one flow serve all.
+
+Avoid the default bad onboarding you'll otherwise reach for: the 8-step grand
+tour that fires on load, narrates obvious UI ("This is the menu"), and forces a
+sequence on unrelated tasks.
+
 ## Workflow
+
+Design the experience first (above), then build it:
 
 1. **Read the guide** — call `get_authoring_guide`.
 2. **Pick a theme** — `list_themes`; pass a `themeId` to `create_content` (every
@@ -36,13 +66,12 @@ plugin's `.mcp.json` / README) — do not guess field shapes.
 8. **Verify** — load the app for the identified end-user and confirm it renders
    (the SDK serves published content). Don't claim "done" before this.
 
-## Design craft
+## Going deeper
 
-How to build *good* content (not just valid) — see
-[references/patterns.md](references/patterns.md): choosing the content type,
-stable target selectors, wiring step navigation by `key`, frequency, attribute
-targeting via segments, and the deliberate constraints (text is markdown,
-`run_javascript` is rejected, theme visual settings aren't API-writable).
+[references/patterns.md](references/patterns.md) — the judgment the schema can't
+carry: choosing the content type, segments as the targeting primitive, stable
+selectors. Mechanics (fields, step types, constraints, what each type needs) come
+from `get_authoring_guide`, not here.
 
 Working request bodies: [references/examples.md](references/examples.md).
 

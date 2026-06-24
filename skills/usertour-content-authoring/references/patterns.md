@@ -1,68 +1,49 @@
-# Authoring patterns (the craft)
+# Design judgment (the craft)
 
-Durable design guidance that the schema can't carry. For exact fields, always use
-`get_content_schema` / the v2 docs — don't transcribe field lists here.
+The judgment the schema can't carry. Mechanics — step types, navigation by `key`,
+`completeWhen`/`clickActions`, frequency, the markdown subset, `run_javascript`
+being rejected, what each type needs to publish — live in `get_authoring_guide`;
+don't transcribe them here. For exact fields use `get_content_schema`.
 
 ## Pick the right content type
 
 | Want | Type |
 |------|------|
-| A guided multi-step walkthrough | **flow** (tooltip / modal / bubble / hidden steps) |
-| A "get started" task list | **checklist** |
+| A guided multi-step walkthrough (steps must happen now, in order) | **flow** |
+| A "get started" list of independent, self-paced tasks | **checklist** |
 | A persistent help button / spotlight that opens a tooltip or runs an action | **launcher** |
 | A top/bottom announcement bar | **banner** |
 | A help hub with tabs of content | **resource-center** |
 | Fire an analytics event when conditions match, no UI | **tracker** |
 
-## Flows
+Two opposite mistakes to avoid:
+- Reaching for a linear **flow** by default — it forces a sequence and a "now",
+  only right when steps truly are sequential. Several independent setup tasks
+  belong in a **checklist** (resumable, user-paced).
+- Padding a **checklist** with invented tasks when there's really one activation
+  action — that belongs in a tight flow (2–3 steps) or a single launcher/tooltip.
 
-- **Only `tooltip` needs a `target`.** `modal` / `bubble` / `hidden` are page-level.
-- **Wire navigation by `key`.** Steps don't auto-advance and the SDK doesn't add
-  Next/Back for you — add `button` blocks with `goto_step` actions. Give each step
-  a `key`; a button's `goto_step.step` referencing that key links them (forward and
-  cyclic links work in one write). The last step's button uses `dismiss`.
-- A non-`hidden` step needs content; a `button` needs text **and** an action.
-- **Modals** are centered by default; set `placement.position` (9-cell grid) to
-  pin to a corner. **Tooltips** position by `side`/`align`; `alignType: auto`
-  flips to avoid the viewport edge.
+Ongoing help belongs in a **launcher** / **resource-center**, not a tour.
 
-## Checklists
+## Segments are the targeting primitive
 
-- Each item needs a `name` **and** either `clickActions` or `completeWhen`.
-- Click-to-complete: `completeWhen: [{ "type": "task_clicked" }]` (valid inside an
-  OR group too — e.g. "clicked **or** visited /pricing").
-- Send users somewhere on click: `clickActions: [{ "type": "navigate", "url": "…" }]`.
-
-## Targeting & frequency (start rules)
-
-- **Auto-start** with `startRules.when` (conditions). `frequency.mode`: `once`
-  (one-time welcome), `multiple`/`unlimited` with an `every` window (recurring).
-- **Attribute targeting goes through segments**, not ad-hoc list filters: create a
-  condition `segment` (`create_segment`) and reference it with a
-  `{ "type": "segment", "segment": "<id>", "in": true }` condition. Segments are
-  the reusable, named primitive.
-- Combine conditions with a `group` (`match: all` = AND, `any` = OR).
+Attribute targeting goes through **segments**, not ad-hoc list filters: create a
+condition `segment` (`create_segment`) and reference it with a
+`{ "type": "segment", "segment": "<id>", "in": true }` condition. Segments are the
+reusable, named unit — also how you stop re-showing content to users who already
+converted (segment on the completion).
 
 ## Stable selectors
 
-- Prefer `{ "by": "selector", "selector": "[data-tour='create']" }` or a stable
-  `id`. Avoid `nth-child`/deep CSS that breaks on markup changes.
-- `{ "by": "text", "text": "Save" }` works but is fragile to copy changes / i18n.
-
-## Deliberate constraints (don't fight these)
-
-- **Text is markdown** (a small subset: h1/h2 only, lists, code, `**bold**`,
-  `[link](url)`, `{{ attribute | default: "x" }}`). Rich formatting like color is
-  not authorable via the API.
-- **`run_javascript` actions are rejected on write** (security). They appear on
-  reads but you can't author them.
-- **Theme visual settings/variations aren't API-writable** — you can only assign a
-  `themeId`. Tune colors/fonts in the theme builder.
-- The API is **strict**: it fulfils the request exactly or errors. Trust
-  `validate_content_version` errors over guessing.
+A target is only as durable as its selector. Prefer
+`{ "by": "selector", "selector": "[data-tour='create']" }` or a stable `id`.
+Avoid `nth-child` / deep CSS that breaks on markup changes, and `{ "by": "text" }`
+(fragile to copy changes and i18n). If you don't know the app's DOM, ask for the
+selector rather than guessing — a valid flow that points at a missing element
+renders nothing.
 
 ## Always verify
 
-Validate isn't enough — a flow can be valid yet point at a selector that doesn't
-exist. Load the app as the identified end-user and confirm it renders and the
-targets resolve.
+`validate_content_version` proves it *can* publish, not that it *works*. A flow
+can be valid yet point at a selector that doesn't exist. Load the app as the
+identified end-user and confirm it renders and the targets resolve.
