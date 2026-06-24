@@ -2,7 +2,7 @@
   "mcpServers": {
     "usertour": {
       "type": "http",
-      "url": "${USERTOUR_MCP_URL:-https://api.usertour.io/mcp}"
+      "url": "${USERTOUR_MCP_URL:-https://mcp.usertour.io/mcp}"
     }
   }
 }

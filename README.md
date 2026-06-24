@@ -17,7 +17,7 @@ the one project the connection may act in, and you're done. It acts as you, neve
 beyond your role in that project.
 
 **Cloud** (default): nothing to set — `.mcp.json` points at
-`https://api.usertour.io/mcp` and the agent runs the login for you.
+`https://mcp.usertour.io/mcp` and the agent runs the login for you.
 
 **Self-hosted**: point the MCP at your own server with `USERTOUR_MCP_URL`:
 
@@ -25,7 +25,7 @@ beyond your role in that project.
 export USERTOUR_MCP_URL="https://usertour.your-company.com/mcp"
 ```
 
-The `url` in `.mcp.json` is `${USERTOUR_MCP_URL:-https://api.usertour.io/mcp}` —
+The `url` in `.mcp.json` is `${USERTOUR_MCP_URL:-https://mcp.usertour.io/mcp}` —
 cloud users get the default, self-hosters override it via the env var. (If your
 agent doesn't expand `${…:-default}` env syntax, edit the `url` in `.mcp.json`
 directly.) OAuth 2.1 requires the endpoint to be reachable over HTTPS (loopback
