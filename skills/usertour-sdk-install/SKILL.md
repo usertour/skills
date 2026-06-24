@@ -28,8 +28,8 @@ ask the user for the environment token (Settings → Environments) — it is the
 ## Workflow
 
 1. **Detect the app** — read `package.json` / file layout to classify it: plain
-   HTML, React (Vite/CRA), or Next.js (app vs pages router). Load only the
-   matching `references/<framework>.md`.
+   HTML, React (Vite/CRA), Next.js (app vs pages router), or Vue/Nuxt. Load only
+   the matching `references/<framework>.md`.
 2. **Get the snippet + API** — WebFetch the usertour.js reference above; also call
    `get_authoring_guide`. Don't reconstruct the loader from memory — read it.
 3. **Get the environment token** — call `list_environments` and use the primary
@@ -63,6 +63,11 @@ ask the user for the environment token (Settings → Environments) — it is the
 - **Self-host target:** if the instance isn't Usertour Cloud, point the SDK at it
   (`USERTOURJS_ENV_VARS`) or it keeps talking to Cloud and nothing loads — see
   [references/self-hosted.md](references/self-hosted.md).
+- **SSR / meta-frameworks:** the SDK is browser-only — load it and call `init()`
+  **client-side only**, never during server render (guard `window`; init after
+  mount). Next → `"use client"` / `next/script`; **Nuxt → a `.client` plugin**
+  ([references/nuxt.md](references/nuxt.md)); SvelteKit → `onMount` / `browser`
+  guard. Running it during SSR is a common "nothing loads."
 
 ## SDK methods (from the reference)
 
