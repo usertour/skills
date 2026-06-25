@@ -69,6 +69,15 @@ ask the user for the environment token (Settings → Environments) — it is the
   ([references/nuxt.md](references/nuxt.md)); SvelteKit → `onMount` / `browser`
   guard. Running it during SSR is a common "nothing loads."
 
+## When it's not working
+
+Published content that doesn't render, or a flow/condition that silently
+misbehaves, is usually a host integration hook that wasn't wired. See
+[references/troubleshooting.md](references/troubleshooting.md) — a symptom → hook
+index (full reload mid-flow → `setCustomNavigate`, custom-input condition never
+matches → `registerCustomInput`, UI behind a modal → `setBaseZIndex`, …). It maps
+the symptom to the hook; the exact API is in the usertour.js advanced docs.
+
 ## SDK methods (from the reference)
 
 `usertour.init(token)`, `usertour.identify(userId, attributes?)`,
