@@ -22,8 +22,12 @@ reloads and the in-progress flow is dropped (the Resource Center survives a
 reload; flows do not).
 **Solution:** Wire `usertour.setCustomNavigate()` to the framework router —
 Next `router.push`, Nuxt `navigateTo`, React Router `navigate`, Vue Router
-`router.push`. OR author cross-page guidance as separate content triggered by a
-`current_url` start rule (portable, reload-proof).
+`router.push`. The callback receives a **URL string** — adapt it to your router's
+signature: routers that take a string work directly
+(`setCustomNavigate(url => navigate(url))`), but some take an object — e.g.
+**TanStack Router**: `setCustomNavigate(url => router.navigate({ to: url }))`.
+OR author cross-page guidance as separate content triggered by a `current_url`
+start rule (portable, reload-proof).
 
 ## A `text_input` / `text_filled` condition (or "continue when filled") never matches
 

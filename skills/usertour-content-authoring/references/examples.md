@@ -24,7 +24,7 @@ Real `update_content_version` bodies. Fetch the live schema with
       "key": "tasks",
       "name": "Tasks",
       "type": "tooltip",
-      "target": { "by": "selector", "selector": "a[href=\"/tasks\"]" },
+      "target": { "selector": "a[href=\"/tasks\"]" },
       "placement": { "side": "right", "align": "center" },
       "content": [
         { "type": "text", "markdown": "**Tasks** — track your work here." },
@@ -34,7 +34,7 @@ Real `update_content_version` bodies. Fetch the live schema with
     }
   ],
   "startRules": {
-    "when": [{ "type": "current_url", "includes": ["/"] }],
+    "when": [{ "type": "current_url", "includes": ["*/"] }],
     "frequency": { "mode": "once" }
   }
 }
@@ -71,7 +71,7 @@ Real `update_content_version` bodies. Fetch the live schema with
   "startRules": {
     "when": [
       { "type": "segment", "segment": "seg_new_users", "in": true },
-      { "type": "current_url", "includes": ["/dashboard"] }
+      { "type": "current_url", "includes": ["*/dashboard"] }
     ],
     "frequency": { "mode": "once" }
   }

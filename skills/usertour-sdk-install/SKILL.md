@@ -16,7 +16,8 @@ retrieval**: read the live docs for the snippet, and get the token from the MCP.
 
 | Source | How | Use for |
 |--------|-----|---------|
-| usertour.js reference | WebFetch https://docs.usertour.io/developers/usertourjs-reference/overview | The exact loader snippet, install method, and full SDK API |
+| usertour.js reference (overview) | WebFetch https://docs.usertour.io/developers/usertourjs-reference/overview | The exact loader snippet, install method, and the core methods (init / identify / group / track) |
+| usertour.js advanced methods | WebFetch the **Advanced** section of the usertour.js reference (linked from the overview) | Host-integration hooks NOT on the overview: `setCustomNavigate` (SPA nav), `setCustomScrollIntoView`, `registerCustomInput`, `setBaseZIndex`, `setUrlFilter`, `setLinkUrlDecorator` |
 | `get_authoring_guide` (MCP tool) | call it | The "Making it appear (the SDK)" section — the cross-surface gotchas |
 | `list_environments` (MCP tool) | call it | The **environment token** for `init()` (the `token` field) |
 | Self-hosted SDK config | WebFetch https://docs.usertour.io/open-source/usertourjs | `USERTOURJS_ENV_VARS` keys when the instance isn't Usertour Cloud |

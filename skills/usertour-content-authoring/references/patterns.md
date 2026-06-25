@@ -54,12 +54,14 @@ converted (segment on the completion).
 
 ## Stable selectors
 
-A target is only as durable as its selector. Prefer
-`{ "by": "selector", "selector": "[data-tour='create']" }` or a stable `id`.
-Avoid `nth-child` / deep CSS that breaks on markup changes, and `{ "by": "text" }`
-(fragile to copy changes and i18n). If you don't know the app's DOM, ask for the
-selector rather than guessing — a valid flow that points at a missing element
-renders nothing.
+A target is only as durable as its selector. Prefer a stable, specific selector —
+`{ "selector": "[data-tour='create']" }` or a stable `id`. To disambiguate when
+the selector matches several elements, add the `text` field (visible text the
+element must contain) or `nth` — don't reach for brittle structural CSS. Avoid
+`nth-child` / deep descendant CSS that breaks on markup changes, and avoid keying
+on visible text alone (fragile to copy changes and i18n). If you don't know the
+app's DOM, ask for the selector rather than guessing — a valid flow that points at
+a missing element renders nothing. (Exact `target` fields: `get_content_schema`.)
 
 ## Always verify — every interactive path, not just "does it appear"
 

@@ -37,4 +37,9 @@ Notes:
 - **SPA routing:** the SDK watches for URL changes; if your router does soft
   navigations and content tied to a path doesn't re-evaluate, check the docs for
   the route-change hook / `usertour.start()` on the relevant screen.
+- **Flow `navigate` actions:** so a flow step's navigate uses SPA soft-nav (not a
+  full reload that drops the in-progress flow), wire `usertour.setCustomNavigate()`.
+  The callback gets a URL **string**; React Router takes it directly, but
+  **TanStack Router** needs `setCustomNavigate(url => router.navigate({ to: url }))`.
+  See [troubleshooting.md](troubleshooting.md).
 - Mount `<UsertourBootstrap user={currentUser} />` once high in the tree.
