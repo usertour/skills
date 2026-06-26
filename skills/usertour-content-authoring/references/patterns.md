@@ -54,6 +54,19 @@ when the first is done — gate the later surface's start rules on the first's s
 (e.g. "the welcome flow has been seen and is now closed"). One focused thing at a
 time. (How to gate on another content's state — `get_authoring_guide`.)
 
+## One idea per surface
+
+A single modal, tooltip, or checklist should carry one idea. The schema happily
+lets you stack a dozen blocks, a dozen checklist items, or a paragraph of tooltip
+copy — and an agent, unlike a designer watching it render, gets no signal that the
+screen has become a wall. Showing too much at once is the most common way solid
+content reads as noise: the user skims, misses the one action that mattered, and
+dismisses it. Keep each step to a short headline + a sentence or two + one primary
+action; keep a checklist to ~3–5 items. When there's genuinely more, split it
+across flow steps or reveal it progressively — never all on the first screen.
+(Companion to "Sequence what auto-shows": that's separate surfaces colliding;
+this is one surface overloaded.)
+
 ## Segments are the targeting primitive
 
 Attribute targeting goes through **segments**, not ad-hoc list filters: create a
