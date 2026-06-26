@@ -36,6 +36,16 @@ appeared) no matter how the user got there, and keep a button as the fallback.
 Layer all three so a contextual step feels smooth instead of "click-our-button"
 linear. (The field shapes — `onClick`, `triggers` — are in `get_authoring_guide`.)
 
+**For "the user completed an action," advance on the result — not the submit
+click.** A submit / save / confirm click is only an *attempt*: if the action is
+validation-gated, the click can fail and nothing happens, yet a step keyed on the
+button being *clicked* advances anyway and falsely reports success. Key the advance
+on the post-action change that proves it worked — the dialog/drawer closing
+(`element` hidden), or a success element/toast appearing. (Clicks are fine for
+actions that can't fail — opening a menu, navigating.) You usually only learn an
+action is validation-gated by driving the app: do a partial/invalid submit and
+watch whether the dialog actually closes.
+
 ## Sequence what auto-shows
 
 If more than one piece can appear on its own (a welcome flow + a checklist + a

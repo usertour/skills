@@ -32,6 +32,9 @@ one wired):
   `#usertour-widget` host — so a top-level `querySelector` / text-wait finds
   nothing even when content IS showing. Read the iframe's `contentDocument` (or
   just assert the host + iframe exist) instead of concluding "nothing rendered."
+  The SDK swaps the iframe surface per step, so re-query it each step — a
+  `contentDocument` reference held from a previous step goes stale (reads null),
+  and a stale null can look like a trigger that didn't fire.
 
 ## 4. Security check
 
