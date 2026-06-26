@@ -24,7 +24,11 @@ Usertour API/MCP.
 ## When to call
 
 - After login / once the current user is known.
-- Again whenever the identified user changes (account switch).
+- Again whenever the identified user changes (account switch) — call
+  `usertour.reset()` **before** re-identifying as the new user. Skipping it
+  silently keeps the previous identity's cached attributes and seen-state (your
+  `{{ name }}` still shows the old user; content behaves as already-seen), with no
+  error — which looks like a targeting/attribute bug but isn't.
 - On **logout**: call `usertour.reset()` so the next (anonymous or different)
   user doesn't inherit the previous identity.
 

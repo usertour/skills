@@ -1,7 +1,7 @@
 # Next.js
 
 The SDK is a **client** concern — it must run in the browser, never during SSR.
-Confirm the loader/package from the docs overview (WebFetch). Key Next.js points:
+Confirm the loader/package from the docs installation page (WebFetch). Key Next.js points:
 
 - Load the SDK client-side only (a `"use client"` component, or `next/script`
   with `strategy="afterInteractive"`).

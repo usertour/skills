@@ -3,8 +3,7 @@
 Most "it published but doesn't work" cases are **host integration hooks that
 weren't wired** — they fail **silently** at runtime. This file maps the symptom
 to the hook. It does NOT re-document the APIs — for exact signatures, read the
-usertour.js **advanced** reference (WebFetch
-https://docs.usertour.io/developers/usertourjs-reference/overview).
+package's TypeScript types (`node_modules/usertour.js/dist/types/usertour.d.ts`).
 
 ## Content doesn't show at all
 

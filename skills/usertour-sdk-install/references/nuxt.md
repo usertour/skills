@@ -1,7 +1,7 @@
 # Nuxt (Vue 3 / Nitro SSR)
 
 The SDK is a **client** concern — it must run in the browser, never during SSR.
-Confirm the loader/package from the docs overview (WebFetch). The Nuxt-specific
+Confirm the loader/package from the docs installation page (WebFetch). The Nuxt-specific
 move is a **client-only plugin**: the `.client` suffix makes Nuxt run the file
 only in the browser, so the SDK never executes during server render (the usual
 cause of "I added it but nothing loads" on Nuxt).
@@ -35,7 +35,7 @@ export default defineNuxtPlugin(() => {
 ```
 
 Notes:
-- Load the SDK loader/package the way the docs overview shows (WebFetch it); call
+- Load the SDK loader/package the way the docs installation page shows (WebFetch it); call
   `init()` once, inside this plugin. Don't reconstruct the loader from memory.
 - `u.id` must equal the `externalId` the content targets — see identify.md.
 - **SPA routing:** Nuxt navigations are client-side. If path-tied content doesn't

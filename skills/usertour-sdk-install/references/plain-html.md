@@ -1,7 +1,8 @@
 # Plain HTML / server-rendered site
 
-Get the exact loader snippet from the docs overview (WebFetch); it is served from
-the Usertour CDN. Place it once, then init + identify. Shape:
+Get the exact loader snippet from the docs installation page (WebFetch
+https://docs.usertour.io/developers/usertourjs-reference/installation); it is
+served from the Usertour CDN. Place it once, then init + identify. Shape:
 
 ```html
 <!-- In <head> or before </body>: paste the loader snippet from the docs. -->

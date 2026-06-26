@@ -16,8 +16,10 @@ Real `update_content_version` bodies. Fetch the live schema with
       "type": "modal",
       "content": [
         { "type": "text", "markdown": "# Welcome 👋\n\nA 30-second tour." },
-        { "type": "button", "text": "Start", "variant": "primary", "actions": [{ "type": "goto_step", "step": "tasks" }] },
-        { "type": "button", "text": "Skip", "variant": "secondary", "actions": [{ "type": "dismiss" }] }
+        { "type": "columns", "columns": [
+          { "width": { "unit": "fill" }, "blocks": [{ "type": "button", "text": "Skip", "variant": "secondary", "actions": [{ "type": "dismiss" }] }] },
+          { "width": { "unit": "fill" }, "blocks": [{ "type": "button", "text": "Start", "variant": "primary", "actions": [{ "type": "goto_step", "step": "tasks" }] }] }
+        ]}
       ]
     },
     {
@@ -28,8 +30,10 @@ Real `update_content_version` bodies. Fetch the live schema with
       "placement": { "side": "right", "align": "center" },
       "content": [
         { "type": "text", "markdown": "**Tasks** — track your work here." },
-        { "type": "button", "text": "Back", "variant": "secondary", "actions": [{ "type": "goto_step", "step": "welcome" }] },
-        { "type": "button", "text": "Finish", "variant": "primary", "actions": [{ "type": "dismiss" }] }
+        { "type": "columns", "columns": [
+          { "width": { "unit": "fill" }, "blocks": [{ "type": "button", "text": "Back", "variant": "secondary", "actions": [{ "type": "goto_step", "step": "welcome" }] }] },
+          { "width": { "unit": "fill" }, "blocks": [{ "type": "button", "text": "Finish", "variant": "primary", "actions": [{ "type": "dismiss" }] }] }
+        ]}
       ]
     }
   ],

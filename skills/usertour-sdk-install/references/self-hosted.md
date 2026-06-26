@@ -43,6 +43,10 @@ copying the all-four-keys block for a *local backend* points `ASSETS_URI` /
 `USERTOURJS_ES2020_URL` at `localhost/sdk`, which a bare dev server doesn't serve
 → the bundle 404s and nothing renders.
 
+**Not sure which you are?** Probe whether the backend serves the SDK bundle:
+`curl <backend>/sdk/es2020/usertour.js` — **200** ⇒ full self-host (set all keys);
+**404** ⇒ local dev (set only `WS_URI`, bundle stays on Cloud).
+
 **Local dev — your app talks to a local backend, bundle stays on Cloud (the
 common case).** Set **only `WS_URI`**; leave the asset/bundle keys unset so the
 SDK still loads its bundle + CSS from Usertour Cloud. Your local server does
@@ -61,6 +65,11 @@ your instance.
 > The npm `usertour.js` package is a thin loader that lazy-loads the real bundle
 > (from Cloud unless redirected), so `USERTOURJS_ENV_VARS` must be set **before**
 > `init()` even on the npm path — it's not only for the HTML snippet.
+
+> ⚠️ Point the endpoint **only** via `USERTOURJS_ENV_VARS.WS_URI`. Do **not** also
+> call the SDK's `setServerEndpoint()` (a legacy method still present in the
+> package types): setting both hangs the SDK (the page main thread freezes, nothing
+> renders). Use `WS_URI` alone.
 
 ## Verify it took
 

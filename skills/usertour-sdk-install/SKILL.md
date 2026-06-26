@@ -16,8 +16,8 @@ retrieval**: read the live docs for the snippet, and get the token from the MCP.
 
 | Source | How | Use for |
 |--------|-----|---------|
-| usertour.js reference (overview) | WebFetch https://docs.usertour.io/developers/usertourjs-reference/overview | The exact loader snippet, install method, and the core methods (init / identify / group / track) |
-| usertour.js advanced methods | WebFetch the **Advanced** section of the usertour.js reference (linked from the overview) | Host-integration hooks NOT on the overview: `setCustomNavigate` (SPA nav), `setCustomScrollIntoView`, `registerCustomInput`, `setBaseZIndex`, `setUrlFilter`, `setLinkUrlDecorator` |
+| usertour.js installation | WebFetch https://docs.usertour.io/developers/usertourjs-reference/installation | The loader snippet + CDN URL, `npm install usertour.js`, and `init` / `identify` usage |
+| usertour.js method signatures | Read the package's TypeScript types: `node_modules/usertour.js/dist/types/usertour.d.ts` | Exact signatures for host-integration hooks (`setCustomNavigate` SPA nav, `setCustomScrollIntoView`, `registerCustomInput`, `setBaseZIndex`, `setUrlFilter`, `setLinkUrlDecorator`) — the shipped types are authoritative when the docs' method list is incomplete. ⚠️ The types also list legacy methods — do NOT call `setServerEndpoint()` (see self-hosted.md). |
 | `get_authoring_guide` (MCP tool) | call it | The "Making it appear (the SDK)" section — the cross-surface gotchas |
 | `list_environments` (MCP tool) | call it | The **environment token** for `init()` (the `token` field) |
 | Self-hosted SDK config | WebFetch https://docs.usertour.io/open-source/usertourjs | `USERTOURJS_ENV_VARS` keys when the instance isn't Usertour Cloud |
@@ -84,7 +84,12 @@ the symptom to the hook; the exact API is in the usertour.js advanced docs.
 `usertour.init(token)`, `usertour.identify(userId, attributes?)`,
 `usertour.group(groupId, attributes?)`, `usertour.track(name, props?)`,
 `usertour.start(contentId, opts?)` (launch content programmatically),
-`usertour.reset()`. Confirm exact signatures in the docs.
+`usertour.reset()`. Confirm exact signatures in the package types
+(`usertour.d.ts`). Stick to these documented methods — the types also expose
+legacy ones; in particular do **not** call `setServerEndpoint()` to point at a
+self-hosted backend (use `WS_URI` instead — see
+[references/self-hosted.md](references/self-hosted.md)). Calling it alongside
+`WS_URI` hangs the SDK.
 
 ## Related
 

@@ -1,7 +1,7 @@
 # React (Vite / CRA / any client-rendered SPA)
 
-Confirm the install method (loader script vs npm package) from the docs overview
-(WebFetch) — don't assume a package name. The wiring is the same either way:
+Confirm the install method (loader script vs npm package) from the docs
+installation page (WebFetch) — don't assume a package name. The wiring is the same either way:
 **init once at app mount; identify when the user is known; reset on logout.**
 
 ```tsx
