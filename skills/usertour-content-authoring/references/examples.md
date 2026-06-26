@@ -44,6 +44,13 @@ Real `update_content_version` bodies. Fetch the live schema with
 }
 ```
 
+> **Button layout.** Top-level blocks stack vertically (each is its own row). To
+> place buttons side by side — a modal/tooltip footer — wrap them in one `columns`
+> block, as above: two `fill` columns, secondary in the first, primary in a column
+> with `justify: "end"` to right-align it. A lone button is left-aligned by default;
+> wrap it in a `columns` block and set the column's `justify` (`end`/`center`) to
+> move it.
+
 ## Checklist — a "get started" list
 
 `update_content_version({ contentId, versionId, data })`:

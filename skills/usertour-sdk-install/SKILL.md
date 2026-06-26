@@ -89,7 +89,10 @@ the symptom to the hook; the exact API is in the usertour.js advanced docs.
 legacy ones; in particular do **not** call `setServerEndpoint()` to point at a
 self-hosted backend (use `WS_URI` instead — see
 [references/self-hosted.md](references/self-hosted.md)). Calling it alongside
-`WS_URI` hangs the SDK.
+`WS_URI` hangs the SDK. And `init` takes ONLY the token — `usertour.init(token)`;
+the package README may show a 2-arg `init(id, { userInfo })` form — ignore it and
+identify the user separately with `identify(userId, attrs)`, or identify silently
+never fires.
 
 ## Related
 

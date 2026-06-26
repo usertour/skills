@@ -27,6 +27,11 @@ one wired):
   renders. `usertour.start("<contentId>")` is the most reliable smoke test — it
   bypasses start-rule conditions and proves the SDK + theme + content pipeline
   works end to end.
+- **Asserting via DOM/automation (not eyeballing)?** The SDK renders surfaces into
+  a same-origin `<iframe class="usertour-widget-surface-viewport">` under a
+  `#usertour-widget` host — so a top-level `querySelector` / text-wait finds
+  nothing even when content IS showing. Read the iframe's `contentDocument` (or
+  just assert the host + iframe exist) instead of concluding "nothing rendered."
 
 ## 4. Security check
 
