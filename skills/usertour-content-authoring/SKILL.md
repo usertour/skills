@@ -80,8 +80,11 @@ Working request bodies: [references/examples.md](references/examples.md).
 ## Notes
 
 - **Targets**: only `tooltip` steps (and launchers/element conditions) need a
-  CSS-selector target. Pick a stable selector in the customer's app
-  (`[data-tour='…']`, a stable id), not a brittle `nth-child`.
+  CSS-selector target. The runtime uses the FIRST match, so make the selector
+  unique (a stable `id`/`data-*`) or pin it with `nth`; `text` only validates the
+  chosen element's exact content — it can't find an element on its own. No stable
+  selector? Add one in the app source (not a reused component), not a brittle
+  `nth-child`. (Full rules: [Stable selectors](references/patterns.md).)
 - **Navigation**: give a step a `key` and a button `{ "type": "goto_step",
   "step": "<key>" }` elsewhere in the same write resolves to it — author a whole
   flow in one call.

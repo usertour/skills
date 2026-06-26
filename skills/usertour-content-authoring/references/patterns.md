@@ -54,14 +54,20 @@ converted (segment on the completion).
 
 ## Stable selectors
 
-A target is only as durable as its selector. Prefer a stable, specific selector —
-`{ "selector": "[data-tour='create']" }` or a stable `id`. To disambiguate when
-the selector matches several elements, add the `text` field (visible text the
-element must contain) or `nth` — don't reach for brittle structural CSS. Avoid
-`nth-child` / deep descendant CSS that breaks on markup changes, and avoid keying
-on visible text alone (fragile to copy changes and i18n). If you don't know the
-app's DOM, ask for the selector rather than guessing — a valid flow that points at
-a missing element renders nothing. (Exact `target` fields: `get_content_schema`.)
+A target is only as durable as its selector, and the runtime targets the FIRST
+element the selector matches. So make the selector resolve to exactly one element —
+a stable `id` or `data-*` (`{ "selector": "[data-tour='create']" }`). If the
+element has no stable selector, add one in the app source on that single element
+(not a reused component or list row). If a stable selector still matches several
+elements, pin the one you want with `nth` (0-based index of the match, range 0–4).
+`text` is a separate refinement — it requires the matched element's exact visible
+text, so it pins a specific content/state (e.g. `id` + `text`), but on its own it
+does NOT search among matches (a non-unique selector with only `text` still hits
+the first match, then fails its text check). Avoid `nth-child` / deep descendant
+CSS that breaks on markup changes, and don't key on visible text alone (fragile to
+copy changes and i18n). If you don't know the app's DOM, ask for a verified
+selector rather than guessing — a flow that points at a missing or wrong element
+renders nothing. (Exact `target` fields: `get_content_schema`.)
 
 ## Always verify — every interactive path, not just "does it appear"
 
