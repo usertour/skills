@@ -52,8 +52,11 @@ see the [MCP docs](https://docs.usertour.io/api-reference-v2/mcp).
 
 ### Cursor
 
-Settings → Rules → Add Rule → Remote Rule (GitHub) with `usertour/skills`, or
-install from the Cursor marketplace.
+Install via `npx skills` (below) or copy the skill folder to `~/.cursor/skills/`
+(see Clone / copy) — Cursor's Settings → Rules, Skills, Subagents page picks up
+local skills automatically when "Include third-party Plugins, Skills, and other
+configs" is on. Cursor removed the old Settings → Rules → Add Rule → Remote Rule
+(GitHub) import in 2.5.26; that path no longer exists.
 
 ### npx skills
 
