@@ -58,6 +58,19 @@ local skills automatically when "Include third-party Plugins, Skills, and other
 configs" is on. Cursor removed the old Settings → Rules → Add Rule → Remote Rule
 (GitHub) import in 2.5.26; that path no longer exists.
 
+### Codex
+
+As a plugin (installs the skills AND the MCP connection in one step — the repo
+ships a `.codex-plugin/` manifest and an `.agents/plugins/marketplace.json`
+catalog):
+
+```
+codex plugin marketplace add usertour/skills
+```
+
+Or skills-only via `npx skills` (below), then connect the MCP separately with
+`codex mcp add usertour --url "https://mcp.usertour.io/mcp"`.
+
 ### npx skills
 
 ```

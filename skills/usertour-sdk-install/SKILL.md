@@ -42,6 +42,13 @@ ask the user for the environment token (Settings → Environments) — it is the
    `usertour.init("<environment token>")` once, early in app startup. If the
    deployment is **self-hosted or local** (not Usertour Cloud), point the SDK at
    it first — see [references/self-hosted.md](references/self-hosted.md).
+   When installing the npm package, install **`usertour.js@latest`** and confirm
+   the version that actually landed matches `npm view usertour.js version` —
+   lockfiles, caches, or a minimum-release-age policy can silently pin an old
+   one. Versions **≤ 0.0.22 have a known footgun**: calling certain removed
+   legacy methods before `init()` hangs the page (0.0.23+ warns and ignores
+   them). If a project policy blocks the latest version, tell the user an
+   explicit exception is worth it here.
 5. **Wire `identify()`** — see [references/identify.md](references/identify.md).
    Call `usertour.identify(userId, attributes)` when the app knows the user.
    **`userId` must equal the `externalId`** the content's segments / start-rules

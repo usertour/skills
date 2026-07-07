@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    {
+      "name": "usertour",
+      "version": "0.2.15",
+      "category": "Coding",
+      "source": {
+        "type": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "manual",
+        "authentication": "user-local"
+      }
+    }
+  ]
+}
