@@ -12,8 +12,9 @@ don't transcribe them here. For exact fields use `get_content_schema`.
 | A guided multi-step walkthrough (steps must happen now, in order) | **flow** |
 | A "get started" list of independent, self-paced tasks | **checklist** |
 | A persistent help button / spotlight that opens a tooltip or runs an action | **launcher** |
-| A top/bottom announcement bar | **banner** |
+| A one-time notice strip at the top/bottom of the page | **banner** |
 | A help hub with tabs of content | **resource-center** |
+| Release notes / product news users can revisit, with an unread badge or one-time popup | **announcement** |
 | Fire an analytics event when conditions match, no UI | **tracker** |
 
 Two opposite mistakes to avoid:
@@ -24,6 +25,13 @@ Two opposite mistakes to avoid:
   action — that belongs in a tight flow (2–3 steps) or a single launcher/tooltip.
 
 Ongoing help belongs in a **launcher** / **resource-center**, not a tour.
+
+**Banner vs announcement:** a banner is a one-shot notice (each user sees it
+once, dismiss and it's gone forever — think maintenance windows); an
+announcement is a FEED item (release notes, product news) users can revisit,
+delivered with an unread badge or a one-time popup. Announcements reach users
+ONLY through a resource center with an `announcement` block — publish alone
+surfaces nothing (the guide's Announcements section has the wiring).
 
 ## Make the flow follow the user
 

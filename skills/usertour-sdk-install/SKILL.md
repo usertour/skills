@@ -21,6 +21,7 @@ retrieval**: read the live docs for the snippet, and get the token from the MCP.
 | `get_authoring_guide` (MCP tool) | call it | The "Making it appear (the SDK)" section — the cross-surface gotchas |
 | `list_environments` (MCP tool) | call it | The **environment token** for `init()` (the `token` field) |
 | Self-hosted SDK config | WebFetch https://docs.usertour.io/open-source/usertourjs | `USERTOURJS_ENV_VARS` keys when the instance isn't Usertour Cloud |
+| Identity verification guide | WebFetch https://docs.usertour.io/developers/identity-verification | Backend-signed identify JWTs, when the environment enforces them |
 
 If the `usertour` MCP isn't connected, you can still install from the docs, but
 ask the user for the environment token (Settings → Environments) — it is the
@@ -53,7 +54,10 @@ ask the user for the environment token (Settings → Environments) — it is the
    Call `usertour.identify(userId, attributes)` when the app knows the user.
    **`userId` must equal the `externalId`** the content's segments / start-rules
    target, or published content silently never shows. Call `usertour.reset()` on
-   logout.
+   logout. If the environment **requires identity verification**, `identify()` /
+   `group()` must also carry a backend-signed JWT (the `{ token }` option) or the
+   identity is **silently rejected** at connect — see
+   [references/identity-verification.md](references/identity-verification.md).
 6. **SPA routing** — for single-page apps, confirm content re-evaluates on route
    change (see the framework reference).
 7. **Verify** — [references/verify.md](references/verify.md). Load the app,
@@ -62,10 +66,17 @@ ask the user for the environment token (Settings → Environments) — it is the
 
 ## Non-negotiables
 
-- **Token type (security):** environment token for `init()`; the API token never
-  touches client code.
+- **Token type (security):** environment token for `init()`; the API token
+  (`utp_…`) and the identity-verification **signing secret** (`utv_…`) never
+  touch client code — only the backend-signed JWT does. Grep the app for both
+  prefixes before finishing.
 - **Identify linkage:** `identify()` id == the `externalId` used in
   segments / start-rules, or nothing renders (the #1 "it's not showing" cause).
+- **Enforced identity verification:** when the target environment requires it,
+  the install is not done until `identify()`/`group()` carry a valid signed
+  token — unsigned calls are rejected **silently** (looks exactly like
+  "identify ignored"). See
+  [references/identity-verification.md](references/identity-verification.md).
 - **Defer the API to the docs:** this skill is the wiring + gotchas, not a copy of
   the snippet. Read the reference; it's the source of truth.
 - **Self-host target:** if the instance isn't Usertour Cloud, point the SDK at it

@@ -57,3 +57,19 @@ Attribute **codes** must match those defined in Usertour
 If you target by company/account, also call
 `usertour.group(companyId, { name, plan, … })`. The `companyId` likewise must
 match the company `externalId` used in targeting.
+
+## Identity verification (when the environment enforces it)
+
+Some environments require every `identify()` / `group()` to be **proven** with a
+JWT the app's backend signs (HS256, the environment's `utv_…` signing secret,
+claims `{ sub: userId, companyId? }`). Pass it as the third argument:
+
+```js
+usertour.identify(currentUser.id, attributes, { token: usertourJwt });
+usertour.group(company.id, companyAttributes, { token: usertourJwt });
+```
+
+Without a valid token in an enforcing environment the identity is rejected
+**silently** — the user never appears in Usertour and nothing renders. Details,
+backend snippet, and debugging:
+[identity-verification.md](identity-verification.md).

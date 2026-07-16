@@ -1,6 +1,6 @@
 ---
 name: usertour-content-authoring
-description: Author and publish Usertour in-app onboarding content — flows (tours), checklists, launchers, banners, surveys, trackers — via the Usertour API/MCP. Use when the user mentions Usertour, building a product tour / onboarding / in-app guide / checklist, or asks to create, update, validate, or publish Usertour content. Biases toward retrieving the live schema and authoring guide from the Usertour MCP over pre-trained knowledge.
+description: Author and publish Usertour in-app onboarding content — flows (tours), checklists, launchers, banners, announcements (release notes / product news), surveys, trackers — via the Usertour API/MCP. Use when the user mentions Usertour, building a product tour / onboarding / in-app guide / checklist, or asks to create, update, validate, or publish Usertour content. Biases toward retrieving the live schema and authoring guide from the Usertour MCP over pre-trained knowledge.
 ---
 
 # Usertour content authoring
@@ -15,7 +15,7 @@ always current.
 | Source | How | Use for |
 |--------|-----|---------|
 | `get_authoring_guide` (MCP tool) | call it at the start | Lifecycle, step types, markdown subset, frequency, what each type needs to publish |
-| `get_content_schema` (MCP tool) | `get_content_schema({ type })` | The exact write body — `steps` for `flow`, `data` for checklist/launcher/banner/tracker/resource-center. **Fetch before authoring a non-flow type** (its `data` is polymorphic). |
+| `get_content_schema` (MCP tool) | `get_content_schema({ type })` | The exact write body — `steps` for `flow`, `data` for checklist/launcher/banner/tracker/announcement/resource-center. **Fetch before authoring a non-flow type** (its `data` is polymorphic). |
 | `validate_content_version` (MCP tool) | dry-run a draft | The publishable-or-not check + precise errors |
 | v2 docs | https://docs.usertour.io (API reference v2 → Concepts) | Human reference: blocks, conditions & actions, rules, type data |
 

@@ -13,6 +13,19 @@ than `init()`'s token.
 **Solution:** The #1 cause — see [identify.md](identify.md) and the SKILL's
 Non-negotiables. Check the linkage before anything else.
 
+## `identify()` looks ignored — the user never appears in Usertour at all
+
+**Cause:** The environment **enforces identity verification** and the
+`identify()` / `group()` call carried no (or an invalid) backend-signed JWT. The
+server rejects the identity **at connect time, silently** — no SDK error, the
+user is never created, nothing renders. A tell: the same code works in an
+environment without enforcement but "does nothing" in the enforced one.
+**Solution:** Wire the signed token
+([identity-verification.md](identity-verification.md)); validate a
+backend-minted JWT in Settings → Identity Verification (it names the exact
+problem: expired / wrong algorithm — HS256 only / missing `sub` / signed with a
+revoked secret / …). Remember each environment has its OWN signing secret.
+
 ## A flow does a full page reload mid-tour (SPA)
 
 **Cause:** A same-window `navigate` action. The SDK's default is a hard
