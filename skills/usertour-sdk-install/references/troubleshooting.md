@@ -16,15 +16,23 @@ Non-negotiables. Check the linkage before anything else.
 ## `identify()` looks ignored — the user never appears in Usertour at all
 
 **Cause:** The environment **enforces identity verification** and the
-`identify()` / `group()` call carried no (or an invalid) backend-signed JWT. The
-server rejects the identity **at connect time, silently** — no SDK error, the
-user is never created, nothing renders. A tell: the same code works in an
-environment without enforcement but "does nothing" in the enforced one.
+`identify()` / `group()` call carried no (or an invalid) backend-signed JWT — or
+the environment has NO active signing secret at all, which rejects even
+correctly-signed tokens. The server rejects the identity at connect time; the
+user is never created, nothing renders. The only client-side signal is the
+`identify()` promise rejecting with a MISLEADING generic message ("…check your
+network connection…" — identical for missing token / bad signature / no active
+secret); fire-and-forget calls show it only as an `Uncaught (in promise)` with
+an empty reason. A tell: the same code works in an environment without
+enforcement but "does nothing" in the enforced one.
 **Solution:** Wire the signed token
 ([identity-verification.md](identity-verification.md)); validate a
 backend-minted JWT in Settings → Identity Verification (it names the exact
 problem: expired / wrong algorithm — HS256 only / missing `sub` / signed with a
-revoked secret / …). Remember each environment has its OWN signing secret.
+revoked secret / no active secret / …). Remember each environment has its OWN
+signing secret — a secret copied from another environment fails exactly like a
+wrong one, and the secret lifecycle is console-only (the API/MCP can't create
+or list secrets).
 
 ## A flow does a full page reload mid-tour (SPA)
 

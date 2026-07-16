@@ -2,10 +2,15 @@
 
 An environment can **require identity verification**: every `identify()` /
 `group()` call must carry a JWT minted by the app's backend, or the server
-rejects the claimed identity **at connect time — silently**. No SDK error, no
-console noise; the app looks installed but the user never appears in Usertour
-and nothing renders. If the target environment has enforcement ON, the install
-is NOT done until this is wired.
+rejects the claimed identity at connect time. The rejection is NEARLY silent —
+the user never appears in Usertour and nothing renders — and the one signal it
+does emit is **misleading**: the `identify()` promise REJECTS with a generic
+"request unsuccessful … check your network connection" message (never mentioning
+identity verification), and a fire-and-forget `identify()` surfaces only as an
+`Uncaught (in promise)` with an empty reason. The message is IDENTICAL for a
+missing token, a bad signature, and a no-active-secret environment — you cannot
+tell them apart client-side. If the target environment has enforcement ON, the
+install is NOT done until this is wired.
 
 Live guide (prefer it over this summary):
 https://docs.usertour.io/developers/identity-verification
@@ -17,6 +22,11 @@ https://docs.usertour.io/developers/identity-verification
   a "signed traffic" coverage stat.
 - Rule of thumb: wire it BEFORE enforcement is enabled — the intended rollout is
   "sign all traffic first, watch coverage hit 100%, then enforce".
+- **The secret lifecycle is console-only**: the API/MCP has no signing-secret
+  surface (deliberate — a secret grants identity forgery), so you cannot create,
+  list, or check secrets from here. Before testing against enforcement, have the
+  admin confirm a secret is registered **in the environment you're targeting**
+  and hand it to your backend config.
 
 ## Backend: mint the token
 
@@ -70,7 +80,16 @@ usertour.group(company.id, companyAttributes, { token: usertourToken });
   wrong algorithm (must be HS256) / malformed / missing `sub` / no active secret.
 - The **coverage stat** (last 7 days: valid / invalid / unsigned) tells you
   whether real traffic is signed before you flip enforcement.
+- **Even CORRECTLY signed tokens fail?** First check the environment has an
+  ACTIVE secret at all: with none registered, the server rejects every
+  non-anonymous identity (`no_active_secret`) and it looks exactly like a bad
+  signature. The classic cause is a secret copied from ANOTHER environment's
+  settings page — secrets are per-environment; a Production secret proves
+  nothing in Development. (Verified the hard way in a real install run.)
 - Symptom map: user identifies fine in an environment WITHOUT enforcement but
-  vanishes in the enforced one → the token is missing/invalid there (different
-  environment = different signing secret; check which secret the backend uses
-  per environment).
+  vanishes in the enforced one → the token is missing/invalid there, or that
+  environment has no active secret (different environment = different signing
+  secret; check which secret the backend uses per environment).
+- Client-side, the only tell of ANY rejection is the `identify()` promise
+  rejecting with the generic network-ish message above — `await`/`.catch()` it
+  during rollout so rejections are at least visible.

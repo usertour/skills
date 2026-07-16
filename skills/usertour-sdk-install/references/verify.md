@@ -35,6 +35,13 @@ one wired):
   The SDK swaps the iframe surface per step, so re-query it each step — a
   `contentDocument` reference held from a previous step goes stale (reads null),
   and a stale null can look like a trigger that didn't fire.
+- **Driving (not just reading) the widget programmatically** has two extra
+  gotchas: accessibility snapshots show the iframe as an opaque "Content Frame"
+  (no clickable uids inside — dispatch events via `contentDocument` instead),
+  and some controls (e.g. the resource-center launcher) ignore a bare
+  `.click()` — dispatch the full pointer sequence
+  (`pointerdown → mousedown → pointerup → mouseup → click`) when a programmatic
+  click seems to do nothing.
 
 ## 4. Security check
 

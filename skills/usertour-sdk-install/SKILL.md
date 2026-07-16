@@ -56,7 +56,8 @@ ask the user for the environment token (Settings → Environments) — it is the
    target, or published content silently never shows. Call `usertour.reset()` on
    logout. If the environment **requires identity verification**, `identify()` /
    `group()` must also carry a backend-signed JWT (the `{ token }` option) or the
-   identity is **silently rejected** at connect — see
+   identity is rejected at connect — near-silently: the only signal is the
+   `identify()` promise rejecting with a misleading network-ish message — see
    [references/identity-verification.md](references/identity-verification.md).
 6. **SPA routing** — for single-page apps, confirm content re-evaluates on route
    change (see the framework reference).
@@ -74,8 +75,9 @@ ask the user for the environment token (Settings → Environments) — it is the
   segments / start-rules, or nothing renders (the #1 "it's not showing" cause).
 - **Enforced identity verification:** when the target environment requires it,
   the install is not done until `identify()`/`group()` carry a valid signed
-  token — unsigned calls are rejected **silently** (looks exactly like
-  "identify ignored"). See
+  token — unsigned calls are rejected near-silently (the promise rejects with a
+  misleading "check your network" message; looks exactly like "identify
+  ignored"). See
   [references/identity-verification.md](references/identity-verification.md).
 - **Defer the API to the docs:** this skill is the wiring + gotchas, not a copy of
   the snippet. Read the reference; it's the source of truth.
