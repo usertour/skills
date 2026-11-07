@@ -62,6 +62,18 @@ selector + a getter for its value.
 or custom scroll containers.
 **Solution:** `usertour.setCustomScrollIntoView()`.
 
+## A tooltip target (or element condition) inside an iframe is never found
+
+**Cause:** The frame is on another origin, or sandboxed without
+`allow-same-origin` — opaque to the browser, so to Usertour. Or the selector
+tries to cross the frame boundary (`iframe#lesson #submit`), which no selector can.
+**Solution:** Serve the frame from the page's own origin (same scheme, host and
+port) and write the selector relative to the frame's own document
+(`#submit`). The SDK stays on the page — never install it inside the frame.
+Check reachability in the page's console:
+`document.querySelector('iframe#x').contentDocument` returns a document when
+reachable, `null` when not. Needs usertour.js 0.8.3+.
+
 ## Usertour UI appears behind your app's modals / overlays
 
 **Cause:** z-index conflict — the app's overlay sits above the SDK's default base

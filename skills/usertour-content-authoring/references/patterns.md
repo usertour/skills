@@ -110,6 +110,18 @@ work: scope through a page-level ancestor
 (`[data-page='tasks'] [data-tour='toolbar-filter']` — give each page container a
 stable marker), or thread a `data-tour` PROP through the shared component so each
 page instance renders its own value (`<DataTableToolbar dataTour="tasks-toolbar" />`).
+
+**Elements inside iframes (usertour.js 0.8.3+).** A target may sit inside a
+same-origin `<iframe>`, nested frames included: the runtime looks on the page
+first, then in each frame it can read. Write the selector as if the frame were a
+page of its own — `#submit-answer`, never `iframe#lesson #submit-answer` — a
+selector cannot cross the frame boundary, and nothing on the page can serve as an
+ancestor of an element inside it. The page's matches come first, then each
+frame's in document order, and `nth` counts through that combined list, so a
+selector unique to the frame's content is the safe choice. A frame on another
+origin, or sandboxed without `allow-same-origin`, is out of reach — a target
+inside it is reported missing, like a nonexistent element. Banners are the
+exception: a banner is embedded only at an element of the page itself.
 Pair either with the step's `current_url` gating so the step can only fire on its
 own page.
 

@@ -104,7 +104,10 @@ Working request bodies: [references/examples.md](references/examples.md).
   unique (a stable `id`/`data-*`) or pin it with `nth`; `text` only validates the
   chosen element's exact content — it can't find an element on its own. No stable
   selector? Add one in the app source (not a reused component), not a brittle
-  `nth-child`. (Full rules: [Stable selectors](references/patterns.md).)
+  `nth-child`. An element inside a same-origin iframe is a valid target: write
+  its selector as if the frame were a page of its own (a selector cannot cross
+  the frame boundary); a cross-origin frame is out of reach. (Full rules:
+  [Stable selectors](references/patterns.md).)
 - **Navigation**: give a step a `key` and a button `{ "type": "goto_step",
   "step": "<key>" }` elsewhere in the same write resolves to it — author a whole
   flow in one call.
